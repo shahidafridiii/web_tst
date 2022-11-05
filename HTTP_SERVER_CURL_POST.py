@@ -43,17 +43,17 @@ class WebServerHandler(BaseHTTPRequestHandler):
                self.send_response(501)
                self.send_header('Content-type', 'text/html')
                self.end_headers()
-               # output = "Received"
-               self.wfile.write(jsondata.encode(encoding="utf_8"))
+               output = "Failed Attempt"
+               self.wfile.write(output.encode(encoding="utf_8"))
 
    except:
        pass
 
 def main():
     try:
-        port = 8080
+        port = 6443
         server = HTTPServer(('10.229.205.38', port), WebServerHandler)
-        print ("Web Server running on port: 8080")
+        print ("Web Server running on port: 6443")
         server.serve_forever()
     except KeyboardInterrupt:
         print (" ^C entered, stopping web server....")

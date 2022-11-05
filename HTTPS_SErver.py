@@ -51,18 +51,18 @@ class WebServerHandler(BaseHTTPRequestHandler):
                self.send_response(501)
                self.send_header('Content-type', 'text/html')
                self.end_headers()
-               # output = "Received"
-               self.wfile.write(jsondata.encode(encoding="utf_8"))
+               output = "Failed Attempt"
+               self.wfile.write(output.encode(encoding="utf_8"))
 
    except:
        pass
 
-server_address = ('localhost', 4443)
+server_address = ('10.229.205.38', 6443)
 httpd = http.server.HTTPServer(server_address, WebServerHandler)
 httpd.socket = ssl.wrap_socket(httpd.socket,
                                server_side=True,
                                certfile="my.cer",
                                keyfile="my.key",
                                ssl_version=ssl.PROTOCOL_TLS)
-print ("Web Server running on port: 4443")
+print ("Web Server running on port: 6443")
 httpd.serve_forever()
