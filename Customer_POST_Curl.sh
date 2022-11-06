@@ -27,7 +27,7 @@
 #
 # Name/Value pairs may also be specified in the monitor template
 # This example expects the following Name/Value pairs:
-#  URI  = /api/config/vnmsha/actions/_operations/get-vnmsha-details
+#  URI  = /api/config/abc
 #  DATA = the POST data to send to the server
 #  RECV = the expected response (not case sensitive)
 #
