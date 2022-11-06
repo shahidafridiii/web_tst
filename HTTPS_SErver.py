@@ -33,10 +33,15 @@ class WebServerHandler(BaseHTTPRequestHandler):
                self.send_error(404, 'File Not Found:')
 
        def do_POST(self):
-           data = self.rfile.read(int(self.headers.get('Content-Length')))
-           data = str(data)
-           print(data)
-           if 'good' in data:
+           # use below 3 lines to get data from post req
+           data = self.headers.items()
+           print('')
+           print(10*'#' + " Request Header Received " + 10*'#')
+           for l in data:
+               print(l)
+           print(10 * '#' + " Request Header End " + 10 * '#')
+           # if 'good' in data:
+           if self.path.endswith("/get-vnmsha-details"):
                self.send_response(200)
                self.send_header('Content-type', 'text/html/json')
                self.end_headers()
@@ -44,8 +49,10 @@ class WebServerHandler(BaseHTTPRequestHandler):
                                     "vnmsha-dtails": {"mgmt-ip-address": "192.10.10.5", "enabled": "true",
                                                       "designated-master": "true", "mode": "master"}}}
                jsondata = json.dumps(output)
-               # output = "Received"
                self.wfile.write(jsondata.encode(encoding="utf_8"))
+               print('')
+               print(10 * '#' + " Response Header  " + 10 * '#')
+               print(jsondata)
 
            else:
                self.send_response(501)
@@ -53,6 +60,9 @@ class WebServerHandler(BaseHTTPRequestHandler):
                self.end_headers()
                output = "Failed Attempt"
                self.wfile.write(output.encode(encoding="utf_8"))
+               print('')
+               print(10 * '#' + " Response_info " + 10 * '#')
+               print(output)
 
    except:
        pass

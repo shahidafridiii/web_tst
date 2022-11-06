@@ -25,10 +25,12 @@ class WebServerHandler(BaseHTTPRequestHandler):
                self.send_error(404, 'File Not Found:')
 
        def do_POST(self):
-           data = self.rfile.read(int(self.headers.get('Content-Length')))
-           data = str(data)
-           print(data)
-           if 'good' in data:
+           # use below 3 lines to get data from post req
+           # data = self.rfile.read(int(self.headers.get('Content-Length')))
+           # data = str(data)
+           # print(data)
+           #if 'good' in data:
+           if self.path.endswith("/get-vnmsha-details"):
                self.send_response(200)
                self.send_header('Content-type', 'text/html/json')
                self.end_headers()
@@ -36,7 +38,6 @@ class WebServerHandler(BaseHTTPRequestHandler):
                                     "vnmsha-dtails": {"mgmt-ip-address": "192.10.10.5", "enabled": "true",
                                                       "designated-master": "true", "mode": "master"}}}
                jsondata = json.dumps(output)
-               # output = "Received"
                self.wfile.write(jsondata.encode(encoding="utf_8"))
 
            else:
